@@ -92,7 +92,7 @@ public class FileUploadController {
 			  return "error";
 			}
 
-        return "redirect:/";
+        
     }
 
 	 @Bean
