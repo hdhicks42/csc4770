@@ -19,6 +19,13 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Map;
 
 @Controller
 public class FileUploadController {
@@ -76,6 +83,17 @@ public class FileUploadController {
         return "redirect:/";
     }
 
+	 @Bean
+	  public DataSource dataSource() throws SQLException {
+		if (dbUrl == null || dbUrl.isEmpty()) {
+		  return new HikariDataSource();
+		} else {
+		  HikariConfig config = new HikariConfig();
+		  config.setJdbcUrl(dbUrl);
+		  return new HikariDataSource(config);
+		}
+	  }
+  
     @ExceptionHandler(StorageFileNotFoundException.class)
     public ResponseEntity<?> handleStorageFileNotFound(StorageFileNotFoundException exc) {
         return ResponseEntity.notFound().build();
