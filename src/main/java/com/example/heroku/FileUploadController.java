@@ -70,25 +70,27 @@ public class FileUploadController {
     @PostMapping("/")
     public String handleFileUpload(@RequestParam("file") MultipartFile file,
             RedirectAttributes redirectAttributes, Map<String, Object> model) {
-	  try (Connection connection = dataSource.getConnection()) {
-		  Statement stmt = connection.createStatement();
-		  stmt.executeUpdate("CREATE TABLE db (obs_id int, site_id int, datetime timestamp, forecast_id int, value int )");
-		  ResultSet rs = stmt.executeQuery("SELECT * FROM db");
-
-		  ArrayList<String> output = new ArrayList<String>();
-		  while (rs.next()) {
-			output.add("Read from DB: " + rs);
-		  }
-
-		  model.put("records", output);
-		  return "db";
-		} catch (Exception e) {
-		  model.put("message", e.getMessage());
-		  return "error";
-		}
-        storageService.store(file);
+				
+		storageService.store(file);
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
+
+		  try (Connection connection = dataSource.getConnection()) {
+			  Statement stmt = connection.createStatement();
+			  stmt.executeUpdate("CREATE TABLE db (obs_id int, site_id int, datetime timestamp, forecast_id int, value int )");
+			  ResultSet rs = stmt.executeQuery("SELECT * FROM db");
+
+			  ArrayList<String> output = new ArrayList<String>();
+			  while (rs.next()) {
+				output.add("Read from DB: " + rs);
+			  }
+
+			  model.put("records", output);
+			  return "db";
+			} catch (Exception e) {
+			  model.put("message", e.getMessage());
+			  return "error";
+			}
 
         return "redirect:/";
     }
