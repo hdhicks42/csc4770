@@ -69,7 +69,7 @@ public class FileUploadController {
 
     @PostMapping("/")
     public String handleFileUpload(@RequestParam("file") MultipartFile file,
-            RedirectAttributes redirectAttributes) {
+            RedirectAttributes redirectAttributes, Map<String, Object> model) {
 	  try (Connection connection = dataSource.getConnection()) {
 		  Statement stmt = connection.createStatement();
 		  stmt.executeUpdate("CREATE TABLE db (obs_id int, site_id int, datetime timestamp, forecast_id int, value int )");
