@@ -17,6 +17,7 @@
 package com.example.heroku;
 
 import static javax.measure.unit.SI.KILOGRAM;
+import org.springframework.boot.CommandLineRunner;
 import javax.measure.quantity.Mass;
 import org.jscience.physics.model.RelativisticModel;
 import org.jscience.physics.amount.Amount;
@@ -40,6 +41,7 @@ import java.util.Map;
 
 @Controller
 @SpringBootApplication
+@EnableConfigurationProperties(StorageProperties.class)
 public class HerokuApplication {
 
   @Value("${spring.datasource.url}")
@@ -99,5 +101,12 @@ public class HerokuApplication {
       return new HikariDataSource(config);
     }
   }
+    @Bean
+    CommandLineRunner init(StorageService storageService) {
+        return (args) -> {
+            storageService.deleteAll();
+            storageService.init();
+        };
+    }
 
 }
