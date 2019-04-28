@@ -24,7 +24,7 @@ import org.jscience.physics.amount.Amount;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Value;import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -87,7 +87,7 @@ public class HerokuApplication {
       model.put("message", e.getMessage());
       return "error";
     }
-  }*/
+  }
 
   @Bean
   public DataSource dataSource() throws SQLException {
@@ -98,7 +98,7 @@ public class HerokuApplication {
       config.setJdbcUrl(dbUrl);
       return new HikariDataSource(config);
     }
-  }
+  } */
     @Bean
     CommandLineRunner init(StorageService storageService) {
         return (args) -> {
