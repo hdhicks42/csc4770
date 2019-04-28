@@ -31,6 +31,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Map;
 
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+
 @Controller
 public class FileUploadController {
 
@@ -77,7 +83,29 @@ public class FileUploadController {
 
 		  try (Connection connection = dataSource.getConnection()) {
 			  Statement stmt = connection.createStatement();
-			  stmt.executeUpdate("CREATE TABLE db (obs_id int, site_id int, datetime timestamp, forecast_id int, value int )");
+			  stmt.executeUpdate("CREATE TABLE db (obs_id int, site_id int, datetime varchar, forecast_id int, value int )");
+			  String line = "";
+			  String split_by = ",";
+				
+				
+			  try(BufferedReader br = new BufferedReader(new FileReader(file))) {
+				  while ((line = br.readLine()) != null) {
+					  String [] new_line = line.split(split_by);
+					  int obs_id = Integer.parseInt(new_line[0]);
+					  int site_id = Integer.parseInt(new_line[1]);
+					  String datetime = new_line[2];
+					  int forecast_id = Integer.parseInt(new_line[3]);
+					  int value = Integer.parseInt(new_line[4]);
+					  
+					  stmt.executeUpdate("INSERT INTO db VALUES (obs_id, site_id, datetime, forecast_id, value)");
+				  }
+			  } catch (IOException e)
+			  {
+				  model.put("message", e.getMessage());
+				  return "error";
+			  }
+			  
+			  
 			  ResultSet rs = stmt.executeQuery("SELECT * FROM db");
 
 			  ArrayList<String> output = new ArrayList<String>();
