@@ -32,6 +32,12 @@ import java.util.Map;
 public class FileUploadController {
 
     private final StorageService storageService;
+	
+	 @Value("${spring.datasource.url}")
+  private String dbUrl;
+
+  @Autowired
+  private DataSource dataSource;
 
     @Autowired
     public FileUploadController(StorageService storageService) {
