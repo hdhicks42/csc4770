@@ -30,6 +30,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
