@@ -56,6 +56,11 @@ public class HerokuApplication {
   String index() {
     return "index";
   }
+   @RequestMapping("/upload")
+  String upload() {
+    return "upload";
+  }
+  
   @RequestMapping("/hello")
   String hello(Map<String, Object> model) {
       RelativisticModel.select();

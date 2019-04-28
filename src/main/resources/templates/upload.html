@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'upload')}">
+<body>
+   <div class="textColumn">
+      <h1>Cloud Calc</h1>
+      <p>This is your resource for cloud computing!</p>
+          <form method="post" action="file-upload-1.html" name="file" enctype="multipart/form-data">
+       		<p> Upload data for analysis. </p>
+			<input type="file"  accept=".csv" name="file"><br /><br />
+			<input type="submit" name="submit" value="Upload">
+		</form>
+    </div>
+	<div>
+		<ul>
+			<li th:each="file : ${files}">
+				<a th:href="${file}" th:text="${file}" />
+			</li>
+		</ul>
+	</div>
+</body>
+</html>
