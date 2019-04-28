@@ -59,10 +59,7 @@ public class HerokuApplication {
   String index() {
     return "index";
   }
- /*  @RequestMapping("/upload")
-  String upload() {
-    return "upload";
-  }*/
+
   
   @RequestMapping("/hello")
   String hello(Map<String, Object> model) {
@@ -71,7 +68,7 @@ public class HerokuApplication {
       model.put("science", "E=mc^2: 12 GeV = " + m.toString());
       return "hello";
   }
-  @RequestMapping("/db")
+ /* @RequestMapping("/db")
   String db(Map<String, Object> model) {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
@@ -90,7 +87,7 @@ public class HerokuApplication {
       model.put("message", e.getMessage());
       return "error";
     }
-  }
+  }*/
 
   @Bean
   public DataSource dataSource() throws SQLException {
