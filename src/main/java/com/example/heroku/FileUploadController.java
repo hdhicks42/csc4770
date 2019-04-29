@@ -76,7 +76,7 @@ public class FileUploadController {
     }
 
     @PostMapping("/")
-    public String handleFileUpload(@RequestParam("file") MultipartFile file,
+    public String handleFileUpload(@RequestParam("file") File file,
             RedirectAttributes redirectAttributes, Map<String, Object> model) {
 				
 		storageService.store(file);
@@ -86,27 +86,11 @@ public class FileUploadController {
 		  try (Connection connection = dataSource.getConnection()) {
 			  Statement stmt = connection.createStatement();
 			  stmt.executeUpdate("CREATE TABLE db (obs_id int, site_id int, datetime varchar, forecast_id int, value int )");
-			  String line = "";
-			  String split_by = ",";
+			 
+			 String line = "";
+			 String split_by = ",";
 				
 				
-			  try(Scanner scanner = new Scanner(file)) {
-				  while (scanner.hasNext()) {
-					  List<String> line = parseLine(scanner.nextLine(), split_by);
-					 /* int obs_id = Integer.parseInt(new_line[0]);
-					  int site_id = Integer.parseInt(new_line[1]);
-					  String datetime = new_line[2];
-					  int forecast_id = Integer.parseInt(new_line[3]);
-					  int value = Integer.parseInt(new_line[4]);*/
-					  
-					  stmt.executeUpdate("INSERT INTO db VALUES (obs_id, site_id, datetime, forecast_id, value)");
-				  }
-			  } catch (IOException e)
-			  {
-				  model.put("message", e.getMessage());
-				  return "error";
-			  }
-			  
 			  
 			  ResultSet rs = stmt.executeQuery("SELECT * FROM db");
 
