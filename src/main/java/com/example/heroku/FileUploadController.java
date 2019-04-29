@@ -93,11 +93,11 @@ public class FileUploadController {
 			  try(Scanner scanner = new Scanner(new File(file)) {
 				  while (scanner.hasNext()) {
 					  List<String> line = parseLine(scanner.nextLine(), split_by);
-					  int obs_id = Integer.parseInt(new_line[0]);
+					 /* int obs_id = Integer.parseInt(new_line[0]);
 					  int site_id = Integer.parseInt(new_line[1]);
 					  String datetime = new_line[2];
 					  int forecast_id = Integer.parseInt(new_line[3]);
-					  int value = Integer.parseInt(new_line[4]);
+					  int value = Integer.parseInt(new_line[4]);*/
 					  
 					  stmt.executeUpdate("INSERT INTO db VALUES (obs_id, site_id, datetime, forecast_id, value)");
 				  }
