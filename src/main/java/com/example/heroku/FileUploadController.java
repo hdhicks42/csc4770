@@ -30,8 +30,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Map;
-
-
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -88,9 +90,9 @@ public class FileUploadController {
 			  String split_by = ",";
 				
 				
-			  try(BufferedReader br = new BufferedReader(file.getInputStream())) {
-				  while ((line = br.readLine()) != null) {
-					  String [] new_line = line.split(split_by);
+			  try(Scanner scanner = new Scanner(new File(file)) {
+				  while (scanner.hasNext()) {
+					  List<String> line = parseLine(scanner.nextLine(), split_by);
 					  int obs_id = Integer.parseInt(new_line[0]);
 					  int site_id = Integer.parseInt(new_line[1]);
 					  String datetime = new_line[2];
