@@ -90,7 +90,7 @@ public class FileUploadController {
 			  String split_by = ",";
 				
 				
-			  try(Scanner scanner = new Scanner(new File(file)) {
+			  try(Scanner scanner = new Scanner(new File(file))) {
 				  while (scanner.hasNext()) {
 					  List<String> line = parseLine(scanner.nextLine(), split_by);
 					 /* int obs_id = Integer.parseInt(new_line[0]);
