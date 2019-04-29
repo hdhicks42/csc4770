@@ -88,7 +88,7 @@ public class FileUploadController {
 			  String split_by = ",";
 				
 				
-			  try(BufferedReader br = new BufferedReader(new FileReader(file.getName()))) {
+			  try(BufferedReader br = new BufferedReader(file.getInputStream())) {
 				  while ((line = br.readLine()) != null) {
 					  String [] new_line = line.split(split_by);
 					  int obs_id = Integer.parseInt(new_line[0]);
