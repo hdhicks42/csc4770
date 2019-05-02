@@ -22,7 +22,7 @@ public class DataServlet extends HttpServlet {
  protected void doGet(HttpServletRequest request,
 	  HttpServletResponse response) throws ServletException, IOException {
 		  response.setContentType("application/json");
-		  List<Stringd> list = DataService.getData();
+		  List<String> list = DataService.getData();
 		  PrintWriter out = response.getWriter();
 		   
 		  DataTableObject dataTableObject = new DataTableObject();

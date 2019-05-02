@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class DataService{
 	
 	@Autowired
-	private DataSource dataSource;
+	private  static DataSource dataSource;
 	
 	public static List<String> getData(){
 		
