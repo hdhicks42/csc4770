@@ -127,14 +127,10 @@ public class FileUploadController {
         
     }
 	
-	public void write(MulipartFile fl, Path pth){
+	public void write(MulipartFile fl, Path pth) throws Exception{
 		Path filepath = Paths.get(pth.toString(), fl.getOriginalFilename());
-		
-		try(fl.transferTo(filepath)) {
-		}catch (IOException) {
-			model.put("message", e.getMessage());
-			  return "error";
-		}
+		fl.transferTo(filepath);
+	
 	}
 
 	 @Bean
