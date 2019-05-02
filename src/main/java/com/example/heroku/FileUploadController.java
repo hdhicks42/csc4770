@@ -118,7 +118,7 @@ public class FileUploadController {
 	
 	}
 	
-	@RequestMapping("/db")
+	@GetMapping("/db")
 	 public String dataBaseHandler(Model model){
 		
 		try (Connection connection = dataSource.getConnection()) {
