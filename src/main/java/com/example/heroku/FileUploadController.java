@@ -53,6 +53,7 @@ import java.lang.Object;
 public class FileUploadController {
 
     private final StorageService storageService;
+	private DataTableObject dt_obj;
 	
 	@Value("${spring.datasource.url}")
 	private String dbUrl;
@@ -92,10 +93,11 @@ public class FileUploadController {
 		storageService.store(file);
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
+				
+			dt_obj = new DataTableObject();
 
 		  try (Connection connection = dataSource.getConnection()) {
 			 Statement stmt = connection.createStatement();
-			 //stmt.executeUpdate("CREATE TABLE db (obs_id int, site_id int, datetime varchar, forecast_id int, value int )");
 		
 			 write(file, storageService.load(file.getOriginalFilename()));
 			 
@@ -123,7 +125,9 @@ public class FileUploadController {
 				sql = "INSERT INTO db VALUES(" + csvRecord.toString() + ")";
 				stmt.execute(sql);
 			}
-				
+			
+			dt_obj.setRecords(parser.getRecords());
+			dt_obj.setColumns(cols);
 			  
 			  ResultSet rs = stmt.executeQuery("SELECT * FROM db");
 
@@ -169,27 +173,7 @@ public class FileUploadController {
 		}
 	}
 	
-	/*@GetMapping("/db")
-	@ResponseBody
-	  String db(Map<String, Object> model) {
-		
-		try (Connection connection = dataSource.getConnection()) {
-			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM db");
 
-			ArrayList<String> output = new ArrayList<String>();
-			
-			while (rs.next()) {
-				output.add("Read from DB: " + rs);
-			}
-					
-			  model.put("records", output);
-			  return "db";
-		} catch (Exception e) {
-			  model.put("message", e.getMessage());
-			  return "error";
-		}
-	}*/
 	 @Bean
 	  public DataSource dataSource() throws SQLException {
 		if (dbUrl == null || dbUrl.isEmpty()) {
@@ -200,6 +184,7 @@ public class FileUploadController {
 		  return new HikariDataSource(config);
 		}
 	  }
+	  
   
     @ExceptionHandler(StorageFileNotFoundException.class)
     public ResponseEntity<?> handleStorageFileNotFound(StorageFileNotFoundException exc) {
