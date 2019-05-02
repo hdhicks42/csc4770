@@ -107,9 +107,16 @@ public class FileUploadController {
 			
 			Iterator<String> iter = col.iterator();
 			
+			String [] cols = new String [20];
+			int i = 0;
+			while (iter.hasNext()){
+				String curr = iter.next();
+				cols[i] = curr;
+			}
+			String heads = arrayToCommaDelimitedString(cols);
 			
-			
-			//stmt.executeUpdate("CREATE TABLE db
+			String sql = "CREATE TABLE db (" + cols + ")";
+		    stmt.executeUpdate(sql);
 			
 				
 			  
