@@ -98,6 +98,7 @@ public class FileUploadController {
 			 write(file, storageService.load(file.getOriginalFilename()));
 			 
 			 File new_file = new File (file.getOriginalFilename());
+			 CSVParser parser = CSVParser.parse(new_file, CSVFormat.EXCEL);
 			/* String filename = file.getOriginalFilename();
 			 
 			 Scanner scan = new Scanner(new File(filename));
