@@ -79,10 +79,15 @@ public class HerokuApplication {
 	while (rs.next()) {
 		output.add("Read from DB: " + rs);
 	}
-			  
+			
+	try (Connection connection = dataSource.getConnection()) {	
+	  Statement stmt = connection.createStatement();
       model.put("records", output);
       return "db";
-
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
   }
 /*
   @Bean
