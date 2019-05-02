@@ -90,7 +90,7 @@ public class FileUploadController {
                 "attachment; filename=\"" + file.getFilename() + "\"").body(file);
     }
 
-    @PostMapping("/db")
+    @PostMapping("/")
     public String handleFileUpload(@RequestParam("file") MultipartFile file,
             RedirectAttributes redirectAttributes, Map<String, Object> model) 
 			throws Exception{
@@ -103,7 +103,7 @@ public class FileUploadController {
 			 new_file = new File (file.getOriginalFilename());
 			 
 		  
-        return "db";
+        return "";
     }
 	
 	public void write(MultipartFile fl, Path pth) throws Exception{
