@@ -100,6 +100,7 @@ public class FileUploadController {
     }
 
     @PostMapping("/db")
+	@ResponseBody
     public String handleFileUpload(@RequestParam("file") MultipartFile file,
             RedirectAttributes redirectAttributes, Map<String, Object> model) 
 			throws Exception{
@@ -110,9 +111,52 @@ public class FileUploadController {
 			
 		write(file, storageService.load(file.getOriginalFilename()));
 		new_file = new File (file.getOriginalFilename());
+		
+			try (Connection connection = dataSource.getConnection()) {
+			 Statement stmt = connection.createStatement();
+			 
+			 
+			 CSVParser parser = CSVParser.parse(new_file, StandardCharsets.US_ASCII, CSVFormat.EXCEL);
+	
+			
+			Map<String,Integer> headers = parser.getHeaderMap();
+			Set<String> col = headers.keySet();
+			
+			Iterator<String> iter = col.iterator();
+			
+			String [] cols = new String [20];
+			int i = 0;
+			while (iter.hasNext()){
+				String curr = iter.next();
+				cols[i] = curr;
+			}
+			String heads = StringUtils.arrayToCommaDelimitedString(cols);
+			
+			String sql = "CREATE TABLE db (" + cols + ")";
+		    stmt.executeUpdate(sql);
+			
+			for (CSVRecord csvRecord : parser) {
+				sql = "INSERT INTO db VALUES(" + csvRecord.toString() + ")";
+				stmt.execute(sql);
+			}
+			
+			  ResultSet rs = stmt.executeQuery("SELECT * FROM db");
+
+			  ArrayList<String> output = new ArrayList<String>();
+			  while (rs.next()) {
+				output.add("Read from DB: " + rs);
+			  }
+
+			  model.put("records", output);
+			  return "db";
+			} catch (Exception e) {
+			  model.put("message", e.getMessage());
+			  return "error";
+			}
+
 
 		  
-        return "db";
+        //return "db";
     }
 	
 	public void write(MultipartFile fl, Path pth) throws Exception{
@@ -121,7 +165,7 @@ public class FileUploadController {
 	
 	}
 	
-	@RequestMapping("/db_old")
+	@RequestMapping("/db")
 	  String db(Map<String, Object> model){
 		
 		try (Connection connection = dataSource.getConnection()) {
@@ -160,7 +204,7 @@ public class FileUploadController {
 			  }
 
 			  model.put("records", output);
-			  return "db_old";
+			  return "db";
 			} catch (Exception e) {
 			  model.put("message", e.getMessage());
 			  return "error";
