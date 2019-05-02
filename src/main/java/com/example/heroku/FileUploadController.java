@@ -153,7 +153,7 @@ public class FileUploadController {
 		
 		try (Connection connection = dataSource.getConnection()) {
 			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM db");
+			ResultSet rs = stmt.executeQuery("SELECT ALL FROM db");
 
 			ArrayList<String> output = new ArrayList<String>();
 			
