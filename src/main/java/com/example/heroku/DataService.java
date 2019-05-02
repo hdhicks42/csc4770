@@ -8,13 +8,14 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class DataService{
 	
 	@Autowired
 	private DataSource dataSource;
 	
-	public static List<CSVRecord> getData(){
+	public static List<String> getData(){
 		
 		try (Connection connection = dataSource.getConnection()) {
 			Statement stmt = connection.createStatement();
@@ -27,10 +28,10 @@ public class DataService{
 			}
 			
 		} catch (Exception e) {
-			  return "error";
+			  
 		}
 		
-		return data;
+		return output;
 	}
 	
 
