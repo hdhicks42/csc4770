@@ -97,9 +97,11 @@ public class FileUploadController {
 		storageService.store(file);
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
-			
-			 write(file, storageService.load(file.getOriginalFilename()));
-			 new_file = new File (file.getOriginalFilename());
+			try(write(file, storageService.load(file.getOriginalFilename()))){
+				new_file = new File (file.getOriginalFilename());
+			}catch (Exception e){
+				return "error";
+			}
 			 
 		  
         return "db";
@@ -112,7 +114,7 @@ public class FileUploadController {
 	}
 	
 	@RequestMapping("/db")
-	  String db(Map<String, Object> model) throws Exception{
+	  String db(Map<String, Object> model){
 		
 		try (Connection connection = dataSource.getConnection()) {
 			 Statement stmt = connection.createStatement();
