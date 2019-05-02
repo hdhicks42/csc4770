@@ -98,9 +98,16 @@ public class FileUploadController {
 			 
 			 Scanner scan = new Scanner(new File(filename));
 			 
-			 List<String> col = parseLine(scanner.nextLine(), split_by, quotes);
-				String sql_col = "CREATE TABLE db (" + 
-				
+			 String line = scanner.nextLine();
+			 String [] cols = commaDelimitedListToStringArray(line);
+			 
+			 while (i = 0; cols[i] != null; i++){
+				 String cols[i] = cols[i] + "varchar(20)";
+			 }
+			 String col = arrayToCommaDelimitedString(cols);
+			 String sql_col = "CREATE TABLE db (" + col + ")";
+			
+			
 				
 			  
 			  ResultSet rs = stmt.executeQuery("SELECT * FROM db");
