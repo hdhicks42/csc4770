@@ -2,7 +2,6 @@ package com.example.heroku;
 
 import java.io.IOException;
 import java.util.stream.Collectors;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -92,8 +91,7 @@ public class FileUploadController {
 
 
 
-    @PostMapping("/db")
-	
+    @PostMapping("/")
     public @ResponseBody String handleFileUpload(@RequestParam("file") MultipartFile file,
             RedirectAttributes redirectAttributes, Map<String, Object> model) 
 			throws Exception{
@@ -141,7 +139,7 @@ public class FileUploadController {
 			  }
 
 			  model.put("records", output);
-			  return "db";
+			  return "/";
 			} catch (Exception e) {
 			  model.put("message", e.getMessage());
 			  return "error";
