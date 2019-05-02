@@ -6,11 +6,11 @@ import java.util.List;
 public class DataService{
 	List<Object> data;
 	
-	public static List<Object> getData(){
+	public static List<CSVRecord> getData(){
 		return data;
 	}
 	
-	public void setData(List<Object> new_data){
+	public void setData(List<CSVRecord> new_data){
 		data = new_data;
 	}
 

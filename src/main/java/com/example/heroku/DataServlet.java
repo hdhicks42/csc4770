@@ -9,10 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.sandeep.data.object.DataTableObject;
-import com.sandeep.data.object.Student;
-import com.sandeep.data.service.StudentDataService;
- 
+
 public class DataServlet extends HttpServlet {
  
  private static final long serialVersionUID = 1L;
@@ -24,7 +21,7 @@ public class DataServlet extends HttpServlet {
  protected void doGet(HttpServletRequest request,
 	  HttpServletResponse response) throws ServletException, IOException {
 		  response.setContentType("application/json");
-		  List<Student> list = DataService.getData();
+		  List<CSVRecord> list = DataService.getData();
 		  PrintWriter out = response.getWriter();
 		   
 		  DataTableObject dataTableObject = new DataTableObject();
