@@ -88,6 +88,14 @@ public class FileUploadController {
 
         return "upload";
     }
+    @GetMapping("/files/{filename:.+}")
+    @ResponseBody
+    public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
+
+        Resource file = storageService.loadAsResource(filename);
+        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
+                "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+    }
 
 
 
@@ -193,8 +201,9 @@ public class FileUploadController {
 			  while (rs.next()) {
 				output.add("Read from DB: " + rs);
 			  }
+			  model.addAttribute("records",output);
 
-			  model.put("records", output);
+			 // model.put("records", output);
 			  return "db";
 			} catch (Exception e) {
 			  model.put("message", e.getMessage());
