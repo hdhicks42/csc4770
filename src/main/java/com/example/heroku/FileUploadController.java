@@ -99,12 +99,12 @@ public class FileUploadController {
                 "attachment; filename=\"" + file.getFilename() + "\"").body(file);
     }
 
-    @PostMapping("/")
+    @PostMapping("/db")
     public String handleFileUpload(@RequestParam("file") MultipartFile file,
             RedirectAttributes redirectAttributes, Map<String, Object> model) 
 			throws Exception{
 				
-		storageService.store(file);
+		storageService.store(file, model);
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
 			
@@ -121,7 +121,7 @@ public class FileUploadController {
 	
 	}
 	
-	@RequestMapping("/db")
+	@RequestMapping("/db_old")
 	  String db(Map<String, Object> model){
 		
 		try (Connection connection = dataSource.getConnection()) {
@@ -160,7 +160,7 @@ public class FileUploadController {
 			  }
 
 			  model.put("records", output);
-			  return "db";
+			  return "db_old";
 			} catch (Exception e) {
 			  model.put("message", e.getMessage());
 			  return "error";

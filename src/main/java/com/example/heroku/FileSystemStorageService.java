@@ -28,7 +28,7 @@ public class FileSystemStorageService implements StorageService {
     }
 
     @Override
-    public void store(MultipartFile file) {
+    public void store(MultipartFile file, Map<String, Object> model) {
         String filename = StringUtils.cleanPath(file.getOriginalFilename());
         try {
             if (file.isEmpty()) {
@@ -48,7 +48,55 @@ public class FileSystemStorageService implements StorageService {
         catch (IOException e) {
             throw new StorageException("Failed to store file " + filename, e);
         }
+		
+		try (Connection connection = dataSource.getConnection()) {
+			 Statement stmt = connection.createStatement();
+			 
+			 
+			 CSVParser parser = CSVParser.parse(new_file, StandardCharsets.US_ASCII, CSVFormat.EXCEL);
+	
+			
+			Map<String,Integer> headers = parser.getHeaderMap();
+			Set<String> col = headers.keySet();
+			
+			Iterator<String> iter = col.iterator();
+			
+			String [] cols = new String [20];
+			int i = 0;
+			while (iter.hasNext()){
+				String curr = iter.next();
+				cols[i] = curr;
+			}
+			String heads = StringUtils.arrayToCommaDelimitedString(cols);
+			
+			String sql = "CREATE TABLE db (" + cols + ")";
+		    stmt.executeUpdate(sql);
+			
+			for (CSVRecord csvRecord : parser) {
+				sql = "INSERT INTO db VALUES(" + csvRecord.toString() + ")";
+				stmt.execute(sql);
+			}
+			
+			  ResultSet rs = stmt.executeQuery("SELECT * FROM db");
+
+			  ArrayList<String> output = new ArrayList<String>();
+			  while (rs.next()) {
+				output.add("Read from DB: " + rs);
+			  }
+
+			  model.put("records", output);
+			  return "db_old";
+			} catch (Exception e) {
+			  model.put("message", e.getMessage());
+			  return "error";
+			}
+
     }
+	
+		public void write(MultipartFile fl, Path pth) throws Exception{
+		Path filepath = Paths.get(pth.toString(), fl.getOriginalFilename());
+		fl.transferTo(filepath);
+	
 
     @Override
     public Stream<Path> loadAll() {
