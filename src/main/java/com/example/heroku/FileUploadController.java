@@ -124,8 +124,8 @@ public class FileUploadController {
 
 		try (Connection connection = dataSource.getConnection()) {
 			 Statement stmt = connection.createStatement();
-			 	String sql = "CREATE TABLE db ";
-		    stmt.executeUpdate(sql);
+			 	String sqla = "CREATE TABLE db ";
+		    stmt.executeUpdate(sqla);
 			 
 			 CSVParser parser = CSVParser.parse(new_file, StandardCharsets.US_ASCII, CSVFormat.EXCEL);
 	
