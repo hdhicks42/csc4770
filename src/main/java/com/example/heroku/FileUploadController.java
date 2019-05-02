@@ -99,7 +99,7 @@ public class FileUploadController {
 
 
 
-    @PostMapping("/")
+    @PostMapping("/upload")
     public @ResponseBody String handleFileUpload(@RequestParam("file") MultipartFile file,
             RedirectAttributes redirectAttributes, Map<String, Object> model) 
 			throws Exception{
@@ -147,7 +147,7 @@ public class FileUploadController {
 			  }
 
 			  model.put("records", output);
-			  return "/";
+			  return "/upload";
 			} catch (Exception e) {
 			  model.put("message", e.getMessage());
 			  return "error";
