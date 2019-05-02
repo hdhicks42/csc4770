@@ -6,7 +6,7 @@ public class DataTableObject {
 	
 	int num_records;
 	String columns;
-	List<String> records;
+	List<Object> records;
 	
 	public int getNumRecords(){
 		return num_records;
@@ -24,11 +24,11 @@ public class DataTableObject {
 		columns = col;
 	}
 	
-	public List<String> getRecords () {
+	public List<Object> getRecords () {
 		return records;
 	}
 	
-	public void setRecords(List<String> rec){
+	public void setRecords(List<Object> rec){
 		records = rec;
 	}
 }

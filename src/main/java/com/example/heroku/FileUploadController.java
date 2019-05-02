@@ -127,7 +127,7 @@ public class FileUploadController {
 			}
 			
 			dt_obj.setRecords(parser.getRecords());
-			dt_obj.setColumns(cols);
+			
 			  
 			  ResultSet rs = stmt.executeQuery("SELECT * FROM db");
 
