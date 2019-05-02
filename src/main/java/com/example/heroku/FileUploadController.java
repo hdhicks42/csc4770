@@ -113,7 +113,7 @@ public class FileUploadController {
 				String curr = iter.next();
 				cols[i] = curr;
 			}
-			String heads = arrayToCommaDelimitedString(cols);
+			String heads = StringUtils.arrayToCommaDelimitedString(cols);
 			
 			String sql = "CREATE TABLE db (" + cols + ")";
 		    stmt.executeUpdate(sql);
