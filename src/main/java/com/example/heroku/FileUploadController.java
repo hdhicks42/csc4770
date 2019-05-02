@@ -86,7 +86,7 @@ public class FileUploadController {
                         "serveFile", path.getFileName().toString()).build().toString())
                 .collect(Collectors.toList()));
 
-        return "/";
+        return "upload";
     }
     @GetMapping("/files/{filename:.+}")
     @ResponseBody
