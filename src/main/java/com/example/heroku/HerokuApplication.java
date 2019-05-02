@@ -68,6 +68,7 @@ public class HerokuApplication {
       model.put("science", "E=mc^2: 12 GeV = " + m.toString());
       return "hello";
   }
+  
   @RequestMapping("/db")
   String db(Map<String, Object> model) {
     
@@ -81,10 +82,7 @@ public class HerokuApplication {
 			  
       model.put("records", output);
       return "db";
-    } catch (Exception e) {
-      model.put("message", e.getMessage());
-      return "error";
-    }
+
   }
 /*
   @Bean
