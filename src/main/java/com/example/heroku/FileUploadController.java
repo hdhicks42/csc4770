@@ -105,7 +105,7 @@ public class FileUploadController {
             RedirectAttributes redirectAttributes, Map<String, Object> model) 
 			throws Exception{
 				
-		storageService.store(file, model);
+		storageService.store(file);
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
 			
