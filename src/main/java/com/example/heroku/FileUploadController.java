@@ -172,16 +172,25 @@ public class FileUploadController {
 	}
 	
 
-	 @Bean
-	  public DataSource dataSource() throws SQLException {
-		if (dbUrl == null || dbUrl.isEmpty()) {
-		  return new HikariDataSource();
-		} else {
-		  HikariConfig config = new HikariConfig();
-		  config.setJdbcUrl(dbUrl);
-		  return new HikariDataSource(config);
-		}
-	  }
+@Configuration
+public class MainConfig {
+
+    @Bean
+    public BasicDataSource dataSource() throws URISyntaxException {
+        URI dbUri = new URI(System.getenv("DATABASE_URL"));
+
+        String username = dbUri.getUserInfo().split(":")[0];
+        String password = dbUri.getUserInfo().split(":")[1];
+        String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath() + "?sslmode=require";
+
+        BasicDataSource basicDataSource = new BasicDataSource();
+        basicDataSource.setUrl(dbUrl);
+        basicDataSource.setUsername(username);
+        basicDataSource.setPassword(password);
+
+        return basicDataSource;
+    }
+}
 	  
   
     @ExceptionHandler(StorageFileNotFoundException.class)
