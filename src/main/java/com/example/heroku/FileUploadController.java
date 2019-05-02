@@ -53,11 +53,11 @@ public class FileUploadController {
 
     private final StorageService storageService;
 	
-	 @Value("${spring.datasource.url}")
-  private String dbUrl;
+	@Value("${spring.datasource.url}")
+	private String dbUrl;
 
-  @Autowired
-  private DataSource dataSource;
+	@Autowired
+	private DataSource dataSource;
 
     @Autowired
     public FileUploadController(StorageService storageService) {
@@ -146,6 +146,29 @@ public class FileUploadController {
 		fl.transferTo(filepath);
 	
 	}
+	
+	@RequestMapping("/db")
+	  String db(Map<String, Object> model) {
+		
+		try (Connection connection = ds.getConnection()) {
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM db");
+
+			ArrayList<String> output = new ArrayList<String>();
+			
+			while (rs.next()) {
+				output.add("Read from DB: " + rs);
+			}
+					
+				
+			  
+			  model.put("records", output);
+			  return "db";
+		} catch (Exception e) {
+			  model.put("message", e.getMessage());
+			  return "error";
+		}
+  }
 
 	 @Bean
 	  public DataSource dataSource() throws SQLException {

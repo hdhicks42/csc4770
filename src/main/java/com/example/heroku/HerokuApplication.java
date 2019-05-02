@@ -45,11 +45,7 @@ import java.util.Map;
 @EnableConfigurationProperties(StorageProperties.class)
 public class HerokuApplication {
 
-  @Value("${spring.datasource.url}")
-  private String dbUrl;
 
-  @Autowired
-  private DataSource ds;
 
   public static void main(String[] args) throws Exception {
     SpringApplication.run(HerokuApplication.class, args);
@@ -92,16 +88,7 @@ public class HerokuApplication {
     }
   }
 
-  @Bean
-  public DataSource ds() throws SQLException {
-    if (dbUrl == null || dbUrl.isEmpty()) {
-      return new HikariDataSource();
-    } else {
-      HikariConfig config = new HikariConfig();
-      config.setJdbcUrl(dbUrl);
-      return new HikariDataSource(config);
-    }
-  } 
+
     @Bean
     CommandLineRunner init(StorageService storageService) {
         return (args) -> {
