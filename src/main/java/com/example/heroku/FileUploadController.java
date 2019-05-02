@@ -124,8 +124,7 @@ public class FileUploadController {
 
 		try (Connection connection = dataSource.getConnection()) {
 			 Statement stmt = connection.createStatement();
-			 	String sqla = "CREATE TABLE db ";
-		    stmt.executeUpdate(sqla);
+			 
 			 
 			 CSVParser parser = CSVParser.parse(new_file, StandardCharsets.US_ASCII, CSVFormat.EXCEL);
 	
@@ -143,7 +142,7 @@ public class FileUploadController {
 			}
 			String heads = StringUtils.arrayToCommaDelimitedString(cols);
 			
-			String sql = "CREATE TABLE db ";
+			String sql = "CREATE TABLE db (" + heads + ")";
 		    stmt.executeUpdate(sql);
 			
 			for (CSVRecord csvRecord : parser) {
