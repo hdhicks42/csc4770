@@ -98,7 +98,7 @@ public class FileUploadController {
                 "attachment; filename=\"" + file.getFilename() + "\"").body(file);
     }
 
-    @PostMapping("/db")
+    @PostMapping("/upload")
 	@ResponseBody
     public String handleFileUpload(@RequestParam("file") MultipartFile file,
             RedirectAttributes redirectAttributes, Map<String, Object> model) 
