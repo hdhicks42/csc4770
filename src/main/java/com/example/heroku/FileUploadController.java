@@ -57,7 +57,7 @@ public class FileUploadController {
 
     private final StorageService storageService;
 	public File new_file;
-	private String DATABASE_URL =  "postgres://vndiflzhpkztcr:c2a3e257bd42e5b87c1664505fc478e71f9843ef118bab4662437bbc308e0c9b@ec2-174-129-10-235.compute-1.amazonaws.com:5432/d15j1um9p9e5t2";
+	private String DATABASE_URL =  "postgres://vndiflzhpkztcr:c2a3e257bd42e5b87c1664505fc478e71f9843ef118bab4662437bbc308e0c9b@ec2-174-129-10-235.compute-1.amazonaws.com:5432/d15j1um9p9e5t2"
 	
 	
 	@Value("${spring.datasource.url}")
@@ -102,7 +102,7 @@ public class FileUploadController {
 			
 		write(file, storageService.load(file.getOriginalFilename()));
 		new_file = new File (file.getOriginalFilename());
-		
+		storageService.store(new_file);
 			 
 		  
         return "";
@@ -167,7 +167,7 @@ public class MainConfig {
 
     @Bean
     public BasicDataSource dataSource() throws URISyntaxException {
-        URI dbUri = new URI(System.getenv(DATABASE_URL));
+        URI dbUri = new URI(System.getenv("DATABASE_URL"));
 
         String username = dbUri.getUserInfo().split(":")[0];
         String password = dbUri.getUserInfo().split(":")[1];
