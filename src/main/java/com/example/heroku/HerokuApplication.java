@@ -80,7 +80,7 @@ public class HerokuApplication {
 		output.add("Read from DB: " + rs);
 	}
 			
-	try (Connection connection = dataSource.getConnection()) {	
+	try (Connection connection = ds.getConnection()) {	
 	  Statement stmt = connection.createStatement();
       model.put("records", output);
       return "db";
@@ -89,9 +89,9 @@ public class HerokuApplication {
       return "error";
     }
   }
-/*
+
   @Bean
-  public DataSource dataSource() throws SQLException {
+  public DataSource ds() throws SQLException {
     if (dbUrl == null || dbUrl.isEmpty()) {
       return new HikariDataSource();
     } else {
@@ -99,7 +99,7 @@ public class HerokuApplication {
       config.setJdbcUrl(dbUrl);
       return new HikariDataSource(config);
     }
-  } */
+  } 
     @Bean
     CommandLineRunner init(StorageService storageService) {
         return (args) -> {
