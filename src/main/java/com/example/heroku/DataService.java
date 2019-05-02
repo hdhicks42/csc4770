@@ -17,7 +17,7 @@ public class DataService{
 	
 	public static List<String> getData(){
 		ArrayList<String> output = new ArrayList<String>();
-		
+
 		try (Connection connection = dataSource.getConnection()) {
 			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT ALL FROM db");
