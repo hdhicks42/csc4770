@@ -90,7 +90,7 @@ public class FileUploadController {
         return "upload";
     }
 
-	@GetMapping("/files/{filename:.+}")
+
     @ResponseBody
     public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
 
@@ -112,7 +112,7 @@ public class FileUploadController {
 		new_file = new File (file.getOriginalFilename());
 
 		  
-        return "";
+        return "db";
     }
 	
 	public void write(MultipartFile fl, Path pth) throws Exception{
