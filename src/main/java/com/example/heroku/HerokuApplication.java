@@ -46,7 +46,7 @@ import java.sql.DriverManager;
 @EnableConfigurationProperties(StorageProperties.class)
 public class HerokuApplication {
 
-
+/*
 
   public static void main(String[] args) throws Exception {
     SpringApplication.run(HerokuApplication.class, args);
@@ -79,6 +79,6 @@ public class HerokuApplication {
            // storageService.deleteAll();
             storageService.init();
         };
-    }
+    }*/
 
 }

@@ -53,8 +53,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.lang.Object;
 
-
 @Controller
+@SpringBootApplication
+@EnableConfigurationProperties(StorageProperties.class)
 public class FileUploadController {
 
     private final StorageService storageService;
@@ -191,4 +192,30 @@ public class MainConfig {
         return ResponseEntity.notFound().build();
     }
 
+	private static Connection getConnection() throws URISyntaxException, SQLException {
+		URI dbUri = new URI(System.getenv("DATABASE_URL"));
+
+		String username = dbUri.getUserInfo().split(":")[0];
+		String password = dbUri.getUserInfo().split(":")[1];
+		String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath() + "?sslmode=require";
+
+		return DriverManager.getConnection(dbUrl, username, password);
+	}
+
+	
+  @RequestMapping("/")
+  String index() {
+    return "index";
+  }
+
+  
+
+
+    @Bean
+    CommandLineRunner init(StorageService storageService) {
+        return (args) -> {
+           // storageService.deleteAll();
+            storageService.init();
+        };
+    }
 }
