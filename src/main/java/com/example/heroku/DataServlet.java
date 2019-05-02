@@ -20,8 +20,8 @@ public class DataServlet extends HttpServlet {
   super();
  }
  
- @RequestMapping("/DataTable.jsp")
- protected void doGet(HttpServletRequest request,
+ @RequestMapping("/DataTable")
+ public String doGet(HttpServletRequest request,
 	  HttpServletResponse response) throws ServletException, IOException {
 		  response.setContentType("application/json");
 		  List<String> list = DataService.getData();
@@ -33,7 +33,7 @@ public class DataServlet extends HttpServlet {
 		  Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		  String json = gson.toJson(dataTableObject);
 		  out.print(json);
- 
+	return "DataTable";
  }
  
  protected void doPost(HttpServletRequest request,
