@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.sandeep.data.object.DataTableObject;
-import com.sandeep.data.object.Student;
 import com.sandeep.data.service.StudentDataService;
  
 public class DataServlet extends HttpServlet {
