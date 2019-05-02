@@ -76,13 +76,14 @@ public class FileUploadController {
         return "upload";
     }
 
-    @GetMapping("/files/{filename:.+}")
+  /*  @GetMapping("/files/{filename:.+}")
     @ResponseBody
     public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
 
         Resource file = storageService.loadAsResource(filename);
-        return "db";
-    }
+        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
+                "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+    } */
 
     @PostMapping("/")
     public String handleFileUpload(@RequestParam("file") MultipartFile file,
@@ -147,7 +148,8 @@ public class FileUploadController {
 	
 	}
 	
-	@RequestMapping("/db")
+	@GetMapping("/db")
+	@ResponseBody
 	  String db(Map<String, Object> model) {
 		
 		try (Connection connection = dataSource.getConnection()) {
