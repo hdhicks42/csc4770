@@ -16,12 +16,13 @@ public class DataService{
 	private  static DataSource dataSource;
 	
 	public static List<String> getData(){
+		ArrayList<String> output = new ArrayList<String>();
 		
 		try (Connection connection = dataSource.getConnection()) {
 			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT ALL FROM db");
 
-			ArrayList<String> output = new ArrayList<String>();
+			
 			
 			while (rs.next()) {
 				output.add(rs.toString());
