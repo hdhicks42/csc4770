@@ -51,10 +51,7 @@ public class HerokuApplication {
     SpringApplication.run(HerokuApplication.class, args);
   }
   
-  private static Connection getConnection() throws URISyntaxException, SQLException {
-    String dbUrl = System.getenv("JDBC_DATABASE_URL");
-    return DriverManager.getConnection(dbUrl);
-	}
+
 	
   private static Connection getConnection() throws URISyntaxException, SQLException {
 		URI dbUri = new URI(System.getenv("DATABASE_URL"));
