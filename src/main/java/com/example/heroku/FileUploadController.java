@@ -91,7 +91,6 @@ public class FileUploadController {
     }
 
 
-    @ResponseBody
     public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
 
         Resource file = storageService.loadAsResource(filename);
@@ -164,7 +163,7 @@ public class FileUploadController {
 		fl.transferTo(filepath);
 	
 	}
-	
+	/*
 	@RequestMapping("/db")
 	  String db(Map<String, Object> model){
 		
@@ -211,7 +210,7 @@ public class FileUploadController {
 			}
 
 	}
-	
+	*/
 
 @Configuration
 public class MainConfig {
