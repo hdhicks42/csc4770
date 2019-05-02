@@ -57,9 +57,7 @@ public class FileUploadController {
 
     private final StorageService storageService;
 	public File new_file;
-\
-	
-	
+
 	@Value("${spring.datasource.url}")
 	private String dbUrl;
 
