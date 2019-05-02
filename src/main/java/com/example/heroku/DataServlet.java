@@ -36,7 +36,7 @@ public class DataServlet extends HttpServlet {
 		  String json = gson.toJson(dataTableObject);
 		  out.print(json);
 		  
-		  return "DataTable";
+		  return "data";
  }
  
  protected void doPost(HttpServletRequest request,
