@@ -3,6 +3,7 @@ package com.example.heroku;
 import java.io.IOException;
 import java.util.stream.Collectors;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -34,6 +35,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Set;
 import java.util.Map;
 import java.io.File;
 import java.util.ArrayList;
@@ -92,28 +94,21 @@ public class FileUploadController {
 		  try (Connection connection = dataSource.getConnection()) {
 			 Statement stmt = connection.createStatement();
 			 //stmt.executeUpdate("CREATE TABLE db (obs_id int, site_id int, datetime varchar, forecast_id int, value int )");
-			 /*
-			 String line = "";
-			 String split_by = ',';
-			 String quotes = '"';*/
-			 
+		
 			 write(file, storageService.load(file.getOriginalFilename()));
 			 
 			 File new_file = new File (file.getOriginalFilename());
 			 CSVParser parser = CSVParser.parse(new_file, StandardCharsets.US_ASCII, CSVFormat.EXCEL);
-			/* String filename = file.getOriginalFilename();
-			 
-			 Scanner scan = new Scanner(new File(filename));
-			 
-			 String line = scanner.nextLine();
-			 String [] cols = commaDelimitedListToStringArray(line);
-			 
-			 for (i = 0; cols[i] != null; i++){
-				 String cols[i] = cols[i] + "varchar(20)";
-			 }
-			 String col = arrayToCommaDelimitedString(cols);
-			 String sql_col = "CREATE TABLE db (" + col + ")";*/
+	
 			
+			Map<String,Integer> headers = parser.getHeaderMap();
+			Set<String> col = headers.keySet();
+			
+			Iterator<String> iter = col.iterator;
+			
+			
+			
+			stmt.executeUpdate("CREATE TABLE db
 			
 				
 			  
