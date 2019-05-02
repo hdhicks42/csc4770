@@ -118,6 +118,10 @@ public class FileUploadController {
 			String sql = "CREATE TABLE db (" + cols + ")";
 		    stmt.executeUpdate(sql);
 			
+			for (CSVRecord csvRecord : parser) {
+				sql = "INSERT INTO db VALUES(" + csvRecord.toString() + ")";
+				stmt.execute(sql);
+			}
 				
 			  
 			  ResultSet rs = stmt.executeQuery("SELECT * FROM db");
