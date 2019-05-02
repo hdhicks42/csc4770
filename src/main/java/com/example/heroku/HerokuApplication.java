@@ -73,6 +73,7 @@ public class HerokuApplication {
   String db(Map<String, Object> model) {
     
 	try (Connection connection = ds.getConnection()) {
+		Statement stmt = connection.createStatement();
 		ResultSet rs = stmt.executeQuery("SELECT * FROM db");
 
 		ArrayList<String> output = new ArrayList<String>();
@@ -82,7 +83,7 @@ public class HerokuApplication {
 		}
 				
 			
-		  Statement stmt = connection.createStatement();
+		  
 		  model.put("records", output);
 		  return "db";
     } catch (Exception e) {
