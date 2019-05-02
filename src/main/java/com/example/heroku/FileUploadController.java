@@ -163,7 +163,7 @@ public class FileUploadController {
 			}
 					
 			  model.put("records", output);
-			  return "db";
+			  return model.toString();
 		} catch (Exception e) {
 			  model.put("message", e.getMessage());
 			  return "error";
