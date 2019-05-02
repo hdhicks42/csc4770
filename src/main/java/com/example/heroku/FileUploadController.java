@@ -120,7 +120,9 @@ public class FileUploadController {
 	
 	@GetMapping("/db")
 	 public String dataBaseHandler(Model model){
-		
+		String sql = "CREATE TABLE db ";
+		    stmt.executeUpdate(sql);
+			
 		try (Connection connection = dataSource.getConnection()) {
 			 Statement stmt = connection.createStatement();
 			 
@@ -154,11 +156,11 @@ public class FileUploadController {
 
 			  ArrayList<String> output = new ArrayList<String>();
 			  
-			  while (rs.next()) {
+			/*  while (rs.next()) {
 				output.add(rs);
-			  }
+			  }*/
 			  
-			  model.addAttribute("records",file.getOriginalFileName());
+			  model.addAttribute("records", rs);
 
 			 
 			  return "db";
