@@ -92,16 +92,15 @@ public class FileUploadController {
 
     @PostMapping("/db")
     public String handleFileUpload(@RequestParam("file") MultipartFile file,
-            RedirectAttributes redirectAttributes, Map<String, Object> model) {
+            RedirectAttributes redirectAttributes, Map<String, Object> model) 
+			throws Exception{
 				
 		storageService.store(file);
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
-			try(write(file, storageService.load(file.getOriginalFilename()))){
-				new_file = new File (file.getOriginalFilename());
-			}catch (Exception e){
-				return "error";
-			}
+			
+			 write(file, storageService.load(file.getOriginalFilename()));
+			 new_file = new File (file.getOriginalFilename());
 			 
 		  
         return "db";
