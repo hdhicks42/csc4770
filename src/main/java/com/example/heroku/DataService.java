@@ -10,7 +10,7 @@ public class DataService{
 		return data;
 	}
 	
-	public setData(List<Object> new_data){
+	public void setData(List<Object> new_data){
 		data = new_data;
 	}
 
