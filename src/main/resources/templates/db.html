@@ -11,15 +11,12 @@
   <h1>Database Output</h1>
   <form method="GET" enctype="text" action="/">
 	  <ul th:each="record : ${records}">
-		<li th:text="${record}"/>
+	
+		<a th:text="${record}" />
 	  </ul>
   </form>
 </div>
 
-<script src='./resource/js/jquery-1.8.3.min.js'></script>
-   <script src='./resource/js/jquery.dataTables.min.js'></script>
-   <script src='http://code.jquery.com/ui/1.9.2/jquery-ui.js'></script>
-   <script src='./resource/js/my-demo-table-script.js'></script>
 
 </body>
 </html>
