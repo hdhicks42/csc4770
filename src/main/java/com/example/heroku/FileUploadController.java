@@ -22,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.util.StringUtils
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -37,6 +38,7 @@ import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.Object;
 
 
 @Controller
@@ -76,7 +78,7 @@ public class FileUploadController {
     }
 
     @PostMapping("/")
-    public String handleFileUpload(@RequestParam("file") File file,
+    public String handleFileUpload(@RequestParam("file") MultipartFile file,
             RedirectAttributes redirectAttributes, Map<String, Object> model) {
 				
 		storageService.store(file);
@@ -84,11 +86,20 @@ public class FileUploadController {
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
 
 		  try (Connection connection = dataSource.getConnection()) {
-			  Statement stmt = connection.createStatement();
-			  stmt.executeUpdate("CREATE TABLE db (obs_id int, site_id int, datetime varchar, forecast_id int, value int )");
+			 Statement stmt = connection.createStatement();
+			 stmt.executeUpdate("CREATE TABLE db (obs_id int, site_id int, datetime varchar, forecast_id int, value int )");
 			 
 			 String line = "";
-			 String split_by = ",";
+			 String split_by = ',';
+			 String quotes = '"';
+			 
+			 write(file, storageService.load(file.getOriginalFilename());
+			 String filename = file.getOriginalFilename();
+			 
+			 Scanner scan = new Scanner(new File(filename));
+			 
+			 List<String> col = parseLine(scanner.nextLine(), split_by, quotes);
+				String sql_col = "CREATE TABLE db (" + 
 				
 				
 			  
@@ -108,6 +119,16 @@ public class FileUploadController {
 
         
     }
+	
+	public void write(MulipartFile fl, Path pth){
+		Path filepath = Paths.get(pth.toString(), fl.getOriginalFilename());
+		
+		try(multipath.transferTo(filepath)) {
+		}catch (IOException) {
+			model.put("message", e.getMessage());
+			  return "error";
+		}
+	}
 
 	 @Bean
 	  public DataSource dataSource() throws SQLException {
