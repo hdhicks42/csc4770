@@ -93,7 +93,7 @@ public class FileUploadController {
 			 String split_by = ',';
 			 String quotes = '"';
 			 
-			 write(file, storageService.load(file.getOriginalFilename());
+			 write(file, storageService.load(file.getOriginalFilename()));
 			 String filename = file.getOriginalFilename();
 			 
 			 Scanner scan = new Scanner(new File(filename));
