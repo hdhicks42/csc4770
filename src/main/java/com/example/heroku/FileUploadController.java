@@ -101,7 +101,7 @@ public class FileUploadController {
 			 String line = scanner.nextLine();
 			 String [] cols = commaDelimitedListToStringArray(line);
 			 
-			 while (i = 0; cols[i] != null; i++){
+			 for (i = 0; cols[i] != null; i++){
 				 String cols[i] = cols[i] + "varchar(20)";
 			 }
 			 String col = arrayToCommaDelimitedString(cols);
