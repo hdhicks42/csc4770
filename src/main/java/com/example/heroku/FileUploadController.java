@@ -53,7 +53,7 @@ import java.lang.Object;
 public class FileUploadController {
 
     private final StorageService storageService;
-	private DataTableObject dt_obj;
+	
 	
 	@Value("${spring.datasource.url}")
 	private String dbUrl;
@@ -77,14 +77,14 @@ public class FileUploadController {
         return "upload";
     }
 
-  /*  @GetMapping("/files/{filename:.+}")
+	@GetMapping("/files/{filename:.+}")
     @ResponseBody
     public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
 
         Resource file = storageService.loadAsResource(filename);
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
                 "attachment; filename=\"" + file.getFilename() + "\"").body(file);
-    }*/
+    }
 
     @PostMapping("/")
     public String handleFileUpload(@RequestParam("file") MultipartFile file,
@@ -93,9 +93,7 @@ public class FileUploadController {
 		storageService.store(file);
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
-				
-			dt_obj = new DataTableObject();
-
+			
 		  try (Connection connection = dataSource.getConnection()) {
 			 Statement stmt = connection.createStatement();
 		
@@ -126,7 +124,7 @@ public class FileUploadController {
 				stmt.execute(sql);
 			}
 			
-			dt_obj.setRecords(parser.getRecords());
+			DataService.setData(parser.getRecords());
 			
 			  
 			  ResultSet rs = stmt.executeQuery("SELECT * FROM db");

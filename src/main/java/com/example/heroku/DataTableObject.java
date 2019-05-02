@@ -20,7 +20,7 @@ public class DataTableObject {
 		return columns;
 	}
 	
-	public void setColumns(int col) {
+	public void setColumns(String col) {
 		columns = col;
 	}
 	
