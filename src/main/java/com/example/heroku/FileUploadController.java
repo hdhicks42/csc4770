@@ -101,14 +101,14 @@ public class FileUploadController {
 
     @PostMapping("/")
     public @ResponseBody String handleFileUpload(@RequestParam("file") MultipartFile file,
-            RedirectAttributes redirectAttributes, Model model) 
+            RedirectAttributes redirectAttributes) 
 			throws Exception{
 				
 		storageService.store(file);
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
 			
-			return "/";
+			return "redirct: /";
 	
     }
 	
