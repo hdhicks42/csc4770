@@ -124,7 +124,7 @@ public class FileUploadController {
 				stmt.execute(sql);
 			}
 			
-			DataService.setData(parser.getRecords());
+			//DataService.setData(parser.getRecords());
 			
 			  
 			  ResultSet rs = stmt.executeQuery("SELECT * FROM db");
