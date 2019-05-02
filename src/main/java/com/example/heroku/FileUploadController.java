@@ -56,6 +56,7 @@ import java.lang.Object;
 public class FileUploadController {
 
     private final StorageService storageService;
+	public File new_file;
 	
 	
 	@Value("${spring.datasource.url}")
@@ -97,12 +98,26 @@ public class FileUploadController {
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
 			
-		  try (Connection connection = dataSource.getConnection()) {
-			 Statement stmt = connection.createStatement();
-		
 			 write(file, storageService.load(file.getOriginalFilename()));
+			 new_file = new File (file.getOriginalFilename());
 			 
-			 File new_file = new File (file.getOriginalFilename());
+		  
+        
+    }
+	
+	public void write(MultipartFile fl, Path pth) throws Exception{
+		Path filepath = Paths.get(pth.toString(), fl.getOriginalFilename());
+		fl.transferTo(filepath);
+	
+	}
+	
+	@RequestMapping("/db")
+	  String db(Map<String, Object> model) {
+		
+		try (Connection connection = dataSource.getConnection()) {
+			 Statement stmt = connection.createStatement();
+			 
+			 
 			 CSVParser parser = CSVParser.parse(new_file, StandardCharsets.US_ASCII, CSVFormat.EXCEL);
 	
 			
@@ -127,9 +142,6 @@ public class FileUploadController {
 				stmt.execute(sql);
 			}
 			
-			//DataService.setData(parser.getRecords());
-			
-			  
 			  ResultSet rs = stmt.executeQuery("SELECT * FROM db");
 
 			  ArrayList<String> output = new ArrayList<String>();
@@ -144,34 +156,6 @@ public class FileUploadController {
 			  return "error";
 			}
 
-        
-    }
-	
-	public void write(MultipartFile fl, Path pth) throws Exception{
-		Path filepath = Paths.get(pth.toString(), fl.getOriginalFilename());
-		fl.transferTo(filepath);
-	
-	}
-	
-	@RequestMapping("/db")
-	  String db(Map<String, Object> model) {
-		
-		try (Connection connection = dataSource.getConnection()) {
-			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT ALL FROM db");
-
-			ArrayList<String> output = new ArrayList<String>();
-			
-			while (rs.next()) {
-				output.add("Read from DB: " + rs);
-			}
-					
-			  model.put("records", output);
-			  return "db";
-		} catch (Exception e) {
-			  model.put("message", e.getMessage());
-			  return "error";
-		}
 	}
 	
 
