@@ -100,7 +100,7 @@ public class FileUploadController {
 
 
     @PostMapping("/")
-    public @ResponseBody String handleFileUpload(@RequestParam("file") MultipartFile file,
+    public String handleFileUpload(@RequestParam("file") MultipartFile file,
             RedirectAttributes redirectAttributes) 
 			throws Exception{
 				
@@ -108,7 +108,7 @@ public class FileUploadController {
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
 			
-			return "redirct: /";
+			return  "redirect:/";
 	
     }
 	
