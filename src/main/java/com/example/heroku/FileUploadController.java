@@ -108,7 +108,7 @@ public class FileUploadController {
 			
 			
 			
-			stmt.executeUpdate("CREATE TABLE db
+			//stmt.executeUpdate("CREATE TABLE db
 			
 				
 			  
