@@ -22,7 +22,7 @@ public class DataServlet extends HttpServlet {
   super();
  }
  
- @GetMapping("/db")
+ @GetMapping("/data")
  public String doGet(HttpServletRequest request,
 	  HttpServletResponse response, Map<String, Object> model) throws ServletException, IOException {
 		  response.setContentType("application/json");
