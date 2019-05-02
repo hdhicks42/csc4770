@@ -87,14 +87,14 @@ public class FileUploadController {
 
 		  try (Connection connection = dataSource.getConnection()) {
 			 Statement stmt = connection.createStatement();
-			 stmt.executeUpdate("CREATE TABLE db (obs_id int, site_id int, datetime varchar, forecast_id int, value int )");
+			 //stmt.executeUpdate("CREATE TABLE db (obs_id int, site_id int, datetime varchar, forecast_id int, value int )");
 			 
 			 String line = "";
 			 String split_by = ',';
 			 String quotes = '"';
 			 
 			 write(file, storageService.load(file.getOriginalFilename()));
-			 String filename = file.getOriginalFilename();
+			/* String filename = file.getOriginalFilename();
 			 
 			 Scanner scan = new Scanner(new File(filename));
 			 
@@ -105,7 +105,7 @@ public class FileUploadController {
 				 String cols[i] = cols[i] + "varchar(20)";
 			 }
 			 String col = arrayToCommaDelimitedString(cols);
-			 String sql_col = "CREATE TABLE db (" + col + ")";
+			 String sql_col = "CREATE TABLE db (" + col + ")";*/
 			
 			
 				
