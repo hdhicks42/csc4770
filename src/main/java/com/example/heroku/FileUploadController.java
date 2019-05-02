@@ -206,7 +206,7 @@ public class FileUploadController {
 			 // model.put("records", output);
 			  return "db";
 			} catch (Exception e) {
-			  model.put("message", e.getMessage());
+			  //model.put("message", e.getMessage());
 			  return "error";
 			}
 
