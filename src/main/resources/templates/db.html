@@ -1,22 +1,42 @@
+
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <style>
+            table {
+                border-collapse: collapse;
+                border: 2px black solid;
+                font: 12px sans-serif;
+            }
 
-<body>
+            td {
+                border: 1px black solid;
+                padding: 5px;
+            }
+        </style>
+    </head>
+    <body>
+      
+        <script src="d3.min.js?v=3.2.8"></script>
 
-	<div>
-		<p> hello </p>
-	</div>
-	
-<div class="container">
-  <h1>Database Output</h1>
-  <form method="GET" enctype="text" action="/">
-	  <ul th:each="record : ${records}">
-	
-		<a th:text="${record}" />
-	  </ul>
-  </form>
-</div>
+        <script type="text/javascript"charset="utf-8">
+            d3.text( ${records}, function(data) {
+                var parsedCSV = d3.csv.parseRows(data);
 
+                var container = d3.select("body")
+                    .append("table")
 
-</body>
+                    .selectAll("tr")
+                        .data(parsedCSV).enter()
+                        .append("tr")
+
+                    .selectAll("td")
+                        .data(function(d) { return d; }).enter()
+                        .append("td")
+                        .text(function(d) { return d; });
+            });
+        </script>
+    </body>
 </html>

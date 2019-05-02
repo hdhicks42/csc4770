@@ -151,11 +151,14 @@ public class FileUploadController {
 			
 			  ResultSet rs = stmt.executeQuery("SELECT * FROM db");
 
+
 			  ArrayList<String> output = new ArrayList<String>();
+			  
 			  while (rs.next()) {
-				output.add("Read from DB: " + rs);
+				output.add(rs);
 			  }
-			  model.addAttribute("records",output);
+			  
+			  model.addAttribute("records",file.getOriginalFileName());
 
 			 
 			  return "db";
