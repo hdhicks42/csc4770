@@ -81,8 +81,7 @@ public class FileUploadController {
     public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
 
         Resource file = storageService.loadAsResource(filename);
-        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
-                "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+        return "db";
     }
 
     @PostMapping("/")
@@ -161,8 +160,6 @@ public class FileUploadController {
 				output.add("Read from DB: " + rs);
 			}
 					
-				
-			  
 			  model.put("records", output);
 			  return "db";
 		} catch (Exception e) {
