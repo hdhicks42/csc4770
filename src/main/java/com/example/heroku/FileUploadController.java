@@ -150,7 +150,7 @@ public class FileUploadController {
 	@RequestMapping("/db")
 	  String db(Map<String, Object> model) {
 		
-		try (Connection connection = ds.getConnection()) {
+		try (Connection connection = dataSource.getConnection()) {
 			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM db");
 
