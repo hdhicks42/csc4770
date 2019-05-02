@@ -1,1 +1,2 @@
 rootProject.name = 'gradle-getting-started'
+org.gradle.parallel=(true)

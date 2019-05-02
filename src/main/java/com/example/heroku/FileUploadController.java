@@ -63,6 +63,10 @@ public class FileUploadController {
 
 	@Autowired
 	private static DataSource dataSource;
+	
+	  public static void main(String[] args) throws Exception {
+		SpringApplication.run(FileUploadController.class, args);
+	  }
 
     @Autowired
     public FileUploadController(StorageService storageService) {
