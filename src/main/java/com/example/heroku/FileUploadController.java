@@ -83,7 +83,7 @@ public class FileUploadController {
         Resource file = storageService.loadAsResource(filename);
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
                 "attachment; filename=\"" + file.getFilename() + "\"").body(file);
-    } */
+    }*/
 
     @PostMapping("/")
     public String handleFileUpload(@RequestParam("file") MultipartFile file,
@@ -168,8 +168,29 @@ public class FileUploadController {
 			  model.put("message", e.getMessage());
 			  return "error";
 		}
-  }
+	}
+	
+	/*@GetMapping("/db")
+	@ResponseBody
+	  String db(Map<String, Object> model) {
+		
+		try (Connection connection = dataSource.getConnection()) {
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM db");
 
+			ArrayList<String> output = new ArrayList<String>();
+			
+			while (rs.next()) {
+				output.add("Read from DB: " + rs);
+			}
+					
+			  model.put("records", output);
+			  return "db";
+		} catch (Exception e) {
+			  model.put("message", e.getMessage());
+			  return "error";
+		}
+	}*/
 	 @Bean
 	  public DataSource dataSource() throws SQLException {
 		if (dbUrl == null || dbUrl.isEmpty()) {
