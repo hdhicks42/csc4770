@@ -11,6 +11,9 @@ import java.sql.Statement;
 
 public class DataService{
 	
+	@Autowired
+	private DataSource dataSource;
+	
 	public static List<CSVRecord> getData(){
 		
 		try (Connection connection = dataSource.getConnection()) {
@@ -20,7 +23,7 @@ public class DataService{
 			ArrayList<String> output = new ArrayList<String>();
 			
 			while (rs.next()) {
-				output.add(rs);
+				output.add(rs.toString());
 			}
 			
 		} catch (Exception e) {
