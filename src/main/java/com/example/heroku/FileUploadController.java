@@ -130,7 +130,7 @@ public class FileUploadController {
 	public void write(MulipartFile fl, Path pth){
 		Path filepath = Paths.get(pth.toString(), fl.getOriginalFilename());
 		
-		try(multipath.transferTo(filepath)) {
+		try(fl.transferTo(filepath)) {
 		}catch (IOException) {
 			model.put("message", e.getMessage());
 			  return "error";
