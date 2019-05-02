@@ -148,8 +148,7 @@ public class FileUploadController {
 	
 	}
 	
-	@GetMapping("/db")
-	@ResponseBody
+	@RequestMapping("/db")
 	  String db(Map<String, Object> model) {
 		
 		try (Connection connection = dataSource.getConnection()) {
