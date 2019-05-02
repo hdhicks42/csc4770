@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.apache.commons.csv.*;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -22,7 +22,7 @@ public class DataServlet extends HttpServlet {
   super();
  }
  
- @RequestMapping("/DataTable")
+ @GetMapping("/DataTable")
  public String doGet(HttpServletRequest request,
 	  HttpServletResponse response, Map<String, Object> model) throws ServletException, IOException {
 		  response.setContentType("application/json");
