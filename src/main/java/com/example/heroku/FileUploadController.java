@@ -158,10 +158,10 @@ public class FileUploadController {
 			  model.addAttribute("records",output);
 
 			 // model.put("records", output);
-			  return "/";
+			  return "db";
 			} catch (Exception e) {
 			  //model.put("message", e.getMessage());
-			  return "db error";
+			  return "error";
 			}
 
 	}
