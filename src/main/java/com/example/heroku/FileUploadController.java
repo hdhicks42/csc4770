@@ -102,7 +102,7 @@ public class FileUploadController {
 			
 		write(file, storageService.load(file.getOriginalFilename()));
 		new_file = new File (file.getOriginalFilename());
-		storageService.store(new_file);
+		
 			 
 		  
         return "";
