@@ -120,12 +120,12 @@ public class FileUploadController {
 	
 	@GetMapping("/db")
 	 public String dataBaseHandler(Model model){
-		String sql = "CREATE TABLE db ";
-		    stmt.executeUpdate(sql);
-			
+	
+
 		try (Connection connection = dataSource.getConnection()) {
 			 Statement stmt = connection.createStatement();
-			 
+			 	String sql = "CREATE TABLE db ";
+		    stmt.executeUpdate(sql);
 			 
 			 CSVParser parser = CSVParser.parse(new_file, StandardCharsets.US_ASCII, CSVFormat.EXCEL);
 	
