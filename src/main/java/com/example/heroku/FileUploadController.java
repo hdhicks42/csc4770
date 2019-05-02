@@ -165,7 +165,7 @@ public class FileUploadController {
 	}
 	
 	@RequestMapping("/db")
-	  String db(Map<String, Object> model){
+	  String db(Model model){
 		
 		try (Connection connection = dataSource.getConnection()) {
 			 Statement stmt = connection.createStatement();
