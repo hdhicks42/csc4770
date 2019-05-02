@@ -80,7 +80,7 @@ public class FileUploadController {
     }
 
     @GetMapping("/upload")
-    public @ResponseBody String listUploadedFiles(Model model) throws IOException {
+    public String listUploadedFiles(Model model) throws IOException {
 
         model.addAttribute("files", storageService.loadAll().map(
                 path -> MvcUriComponentsBuilder.fromMethodName(FileUploadController.class,
@@ -91,16 +91,10 @@ public class FileUploadController {
     }
 
 
-    public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
-
-        Resource file = storageService.loadAsResource(filename);
-        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
-                "attachment; filename=\"" + file.getFilename() + "\"").body(file);
-    }
 
     @PostMapping("/db")
-	@ResponseBody
-    public String handleFileUpload(@RequestParam("file") MultipartFile file,
+	
+    public @ResponseBody String handleFileUpload(@RequestParam("file") MultipartFile file,
             RedirectAttributes redirectAttributes, Map<String, Object> model) 
 			throws Exception{
 				
