@@ -39,6 +39,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Map;
+import java.sql.DriverManager;
 
 @Controller
 @SpringBootApplication
@@ -70,16 +71,6 @@ public class HerokuApplication {
   }
 
   
-  @RequestMapping("/hello")
-  String hello(Map<String, Object> model) {
-      RelativisticModel.select();
-      Amount<Mass> m = Amount.valueOf("12 GeV").to(KILOGRAM);
-      model.put("science", "E=mc^2: 12 GeV = " + m.toString());
-      return "hello";
-  }
-  
-
-
 
 
     @Bean
