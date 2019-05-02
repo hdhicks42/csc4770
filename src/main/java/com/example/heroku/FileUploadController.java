@@ -163,7 +163,7 @@ public class FileUploadController {
 		fl.transferTo(filepath);
 	
 	}
-	/*
+	
 	@RequestMapping("/db")
 	  String db(Map<String, Object> model){
 		
@@ -210,7 +210,7 @@ public class FileUploadController {
 			}
 
 	}
-	*/
+
 
 @Configuration
 public class MainConfig {
