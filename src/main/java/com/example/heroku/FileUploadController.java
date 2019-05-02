@@ -129,7 +129,7 @@ public class FileUploadController {
         
     }
 	
-	public void write(MulipartFile fl, Path pth) throws Exception{
+	public void write(MultipartFile fl, Path pth) throws Exception{
 		Path filepath = Paths.get(pth.toString(), fl.getOriginalFilename());
 		fl.transferTo(filepath);
 	
