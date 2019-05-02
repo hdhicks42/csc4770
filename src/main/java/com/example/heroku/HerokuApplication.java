@@ -46,6 +46,7 @@ import java.sql.DriverManager;
 @EnableConfigurationProperties(StorageProperties.class)
 public class HerokuApplication {
 
+	private String DATABASE_URL =  "postgres://vndiflzhpkztcr:c2a3e257bd42e5b87c1664505fc478e71f9843ef118bab4662437bbc308e0c9b@ec2-174-129-10-235.compute-1.amazonaws.com:5432/d15j1um9p9e5t2";
 
 
   public static void main(String[] args) throws Exception {
@@ -55,7 +56,7 @@ public class HerokuApplication {
 
 	
   private static Connection getConnection() throws URISyntaxException, SQLException {
-		URI dbUri = new URI(System.getenv("DATABASE_URL"));
+		URI dbUri = new URI(System.getenv(DATABASE_URL));
 
 		String username = dbUri.getUserInfo().split(":")[0];
 		String password = dbUri.getUserInfo().split(":")[1];
