@@ -59,7 +59,7 @@ public class FileUploadController {
 	private String dbUrl;
 
 	@Autowired
-	private DataSource dataSource;
+	private static DataSource dataSource;
 
     @Autowired
     public FileUploadController(StorageService storageService) {

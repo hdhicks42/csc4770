@@ -7,7 +7,7 @@ public class DataTableObject {
 	
 	int num_records;
 	String columns;
-	List<CSVRecord> records;
+	List<String> records;
 	
 	public int getNumRecords(){
 		return num_records;
@@ -25,11 +25,11 @@ public class DataTableObject {
 		columns = col;
 	}
 	
-	public List<CSVRecord> getRecords () {
+	public List<String> getRecords () {
 		return records;
 	}
 	
-	public void setRecords(List<CSVRecord> rec){
+	public void setRecords(List<String> rec){
 		records = rec;
 	}
 }
