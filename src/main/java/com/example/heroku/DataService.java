@@ -5,14 +5,25 @@ import java.util.List;
 import org.apache.commons.csv.*;
 
 public class DataService{
-	List<Object> data;
 	
 	public static List<CSVRecord> getData(){
+		
+		try (Connection connection = dataSource.getConnection()) {
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT ALL FROM db");
+
+			ArrayList<String> output = new ArrayList<String>();
+			
+			while (rs.next()) {
+				output.add(rs);
+			}
+			
+		} catch (Exception e) {
+			  return "error";
+		}
+		
 		return data;
 	}
 	
-	public void setData(List<CSVRecord> new_data){
-		data = new_data;
-	}
 
 }
