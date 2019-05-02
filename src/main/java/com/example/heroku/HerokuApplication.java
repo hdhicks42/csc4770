@@ -72,21 +72,22 @@ public class HerokuApplication {
   @RequestMapping("/db")
   String db(Map<String, Object> model) {
     
-	ResultSet rs = stmt.executeQuery("SELECT * FROM db");
+	try (Connection connection = ds.getConnection()) {
+		ResultSet rs = stmt.executeQuery("SELECT * FROM db");
 
-	ArrayList<String> output = new ArrayList<String>();
-	
-	while (rs.next()) {
-		output.add("Read from DB: " + rs);
-	}
+		ArrayList<String> output = new ArrayList<String>();
+		
+		while (rs.next()) {
+			output.add("Read from DB: " + rs);
+		}
+				
 			
-	try (Connection connection = ds.getConnection()) {	
-	  Statement stmt = connection.createStatement();
-      model.put("records", output);
-      return "db";
+		  Statement stmt = connection.createStatement();
+		  model.put("records", output);
+		  return "db";
     } catch (Exception e) {
-      model.put("message", e.getMessage());
-      return "error";
+		  model.put("message", e.getMessage());
+		  return "error";
     }
   }
 
