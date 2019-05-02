@@ -108,54 +108,8 @@ public class FileUploadController {
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
 			
-		write(file, storageService.load(file.getOriginalFilename()));
-		new_file = new File (file.getOriginalFilename());
-		
-			try (Connection connection = dataSource.getConnection()) {
-			 Statement stmt = connection.createStatement();
-			 
-			 
-			 CSVParser parser = CSVParser.parse(new_file, StandardCharsets.US_ASCII, CSVFormat.EXCEL);
+			return "/"
 	
-			
-			Map<String,Integer> headers = parser.getHeaderMap();
-			Set<String> col = headers.keySet();
-			
-			Iterator<String> iter = col.iterator();
-			
-			String [] cols = new String [20];
-			int i = 0;
-			while (iter.hasNext()){
-				String curr = iter.next();
-				cols[i] = curr;
-			}
-			String heads = StringUtils.arrayToCommaDelimitedString(cols);
-			
-			String sql = "CREATE TABLE db (" + cols + ")";
-		    stmt.executeUpdate(sql);
-			
-			for (CSVRecord csvRecord : parser) {
-				sql = "INSERT INTO db VALUES(" + csvRecord.toString() + ")";
-				stmt.execute(sql);
-			}
-			
-			  ResultSet rs = stmt.executeQuery("SELECT * FROM db");
-
-			  ArrayList<String> output = new ArrayList<String>();
-			  while (rs.next()) {
-				output.add("Read from DB: " + rs);
-			  }
-
-			  model.addAttribute("records", output);
-			  return "/upload";
-			} catch (Exception e) {
-			  //model.put("message", e.getMessage());
-			  return "error";
-			}
-
-
-		  
-        //return "db";
     }
 	
 	public void write(MultipartFile fl, Path pth) throws Exception{
@@ -164,7 +118,7 @@ public class FileUploadController {
 	
 	}
 	
-	@RequestMapping("/db")
+	@PostMapping("/db")
 	  String db(Model model){
 		
 		try (Connection connection = dataSource.getConnection()) {
@@ -187,7 +141,7 @@ public class FileUploadController {
 			}
 			String heads = StringUtils.arrayToCommaDelimitedString(cols);
 			
-			String sql = "CREATE TABLE db (" + cols + ")";
+			String sql = "CREATE TABLE db ";
 		    stmt.executeUpdate(sql);
 			
 			for (CSVRecord csvRecord : parser) {
