@@ -96,6 +96,8 @@ public class FileUploadController {
 			 String quotes = '"';*/
 			 
 			 write(file, storageService.load(file.getOriginalFilename()));
+			 
+			 File new_file = new File (file.getOriginalFilename());
 			/* String filename = file.getOriginalFilename();
 			 
 			 Scanner scan = new Scanner(new File(filename));
